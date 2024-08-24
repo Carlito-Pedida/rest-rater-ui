@@ -5,7 +5,7 @@ const RestoDetails = (props) => {
   return (
     <>
       <div>
-        <p>{description}</p>
+        <div>{description}</div>
       </div>
     </>
   );

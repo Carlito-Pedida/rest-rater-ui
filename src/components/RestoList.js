@@ -34,17 +34,29 @@ const RestoList = () => {
   };
 
   const rateClicked = (rate, resto) => {
+    const newRating = rate + 1;
     fetch(`http://127.0.0.1:8000/api/restaurants/${resto.id}/rate_resto/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Token 2b96ffb77c3cda6c7fff0483b3e5b87e9b983cee"
       },
-      body: JSON.stringify({ stars: rate + 1 })
+      body: JSON.stringify({ stars: newRating })
     })
       .then((response) => response.json())
-      .then((response) => console.log(response))
+      .then((response) => {
+        setRating(newRating);
+        updateRestoList(resto.id, newRating);
+      })
       .catch((error) => console.log(error));
+  };
+
+  const updateRestoList = (restoId, newRating) => {
+    setRestoList((prevList) =>
+      prevList.map((resto) =>
+        resto.id === restoId ? { ...resto, rating_avg: newRating } : resto
+      )
+    );
   };
 
   return (

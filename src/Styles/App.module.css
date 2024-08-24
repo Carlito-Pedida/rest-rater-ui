@@ -1,17 +1,11 @@
-.App {
+.app {
   min-height: 100vh;
   padding: 20px;
   background-color: #282c34;
   color: white;
 }
 
-.App-header {
+.appHeader {
   text-align: center;
   font-size: calc(10px + 2vmin);
-}
-
-.layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 20px;
 }

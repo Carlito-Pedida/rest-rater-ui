@@ -1,0 +1,22 @@
+.restoname {
+  cursor: pointer;
+}
+
+.restoname:hover {
+  color: rgb(250, 238, 128);
+}
+
+.mainView {
+  display: flex;
+  flex-direction: row;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.star {
+  color: orange;
+}

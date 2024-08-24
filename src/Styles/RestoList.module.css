@@ -20,3 +20,18 @@
 .star {
   color: orange;
 }
+.rateIt {
+  color: orange;
+  cursor: pointer;
+}
+
+.arrow {
+  color: yellow;
+  scale: calc(1.5);
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}

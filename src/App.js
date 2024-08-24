@@ -8,7 +8,7 @@ function App({ selected }) {
   return (
     <div className={`${styles.app}`}>
       <header className={`${styles.appHeader}`}>
-        <h1>Restaurant Rater App</h1>
+        <h1>Restaurant Rater</h1>
       </header>
       <RestoList />
     </div>

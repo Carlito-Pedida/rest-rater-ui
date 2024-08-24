@@ -16,17 +16,22 @@
 }
 
 .layout {
+  margin: 0px 30px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 20px;
+  grid-template-columns: 1.3fr 2fr;
+  grid-gap: 30px;
 }
 
 .star {
   color: orange;
 }
 .rateIt {
-  color: orange;
+  color: rgb(47, 255, 0);
   cursor: pointer;
+}
+
+#rateIt {
+  font-size: x-large;
 }
 
 .arrow {
@@ -40,7 +45,7 @@
   column-gap: 10px;
 }
 .editIcon {
-  color: rgb(112, 181, 112);
+  color: rgb(187, 252, 129);
   padding: 0px 5px;
   cursor: pointer;
 }
@@ -49,10 +54,16 @@
 }
 
 .trashIcon {
-  color: red;
+  color: rgb(251, 80, 80);
   padding: 0px 5px;
   cursor: pointer;
 }
 .trashIcon:hover {
   color: rgb(252, 192, 129);
+}
+
+.leftGrid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

@@ -82,32 +82,32 @@ const RestoList = () => {
           <h2>Restaurant</h2>
           {restoList.map((resto) => {
             return (
-              <div key={resto.id}>
-                <h2
-                  className={`${styles.restoname}`}
-                  onClick={handleRestoClick(resto)}
-                >
-                  {resto.name}
-                </h2>
-                <>
-                  <div>
-                    <FaEdit
-                      className={`${styles.editIcon}`}
-                      onClick={() => editClicked(resto)}
-                    />
-                    <FaTrashAlt
-                      className={`${styles.trashIcon}`}
-                      onClick={() => deleteClicked()}
-                    />
-                  </div>
-                </>
+              <div key={resto.id} className={`${styles.leftGrid}`}>
+                <div>
+                  <h2
+                    className={`${styles.restoname}`}
+                    onClick={handleRestoClick(resto)}
+                  >
+                    {resto.name}
+                  </h2>
+                </div>
+                <div>
+                  <FaEdit
+                    className={`${styles.editIcon}`}
+                    onClick={() => editClicked(resto)}
+                  />
+                  <FaTrashAlt
+                    className={`${styles.trashIcon}`}
+                    onClick={() => deleteClicked()}
+                  />
+                </div>
               </div>
             );
           })}
         </div>
         {edit ? null : (
           <div>
-            <h2>Description</h2>
+            <h2>Review</h2>
             <Ratings
               rating_avg={
                 <div>
@@ -122,7 +122,7 @@ const RestoList = () => {
                   ) : null}
                 </div>
               }
-              rating_count={count ? <p>({count})</p> : null}
+              rating_count={count ? <p>( {count} )</p> : null}
             />
 
             <>
@@ -139,11 +139,12 @@ const RestoList = () => {
                 }
               />
               <div>
-                <h3>Rate Restaurant</h3>
+                <h3>Rate it!</h3>
                 {[...Array(5)].map((e, i) => {
                   return (
                     <FaStar
                       key={i}
+                      id={`${styles.rateIt}`}
                       className={`${highlighted > i - 1 ? styles.rateIt : ""}`}
                       onMouseEnter={highlighter(i)}
                       onMouseLeave={highlighter(-1)}

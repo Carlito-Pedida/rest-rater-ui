@@ -1,1 +1,6 @@
-
+.ratingLayout {
+  display: flex;
+  align-items: center;
+  font-size: large;
+  column-gap: 0.5rem;
+}

@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
 import styles from "../Styles/RestoList.module.css";
 import RestoDetails from "./RestoDetails";
+import RestoCreateUpdate from "./RestoCreateUpdate";
 import Ratings from "./Ratings";
-import { FaStar } from "react-icons/fa";
+import { FaStar, FaTrashAlt, FaEdit } from "react-icons/fa";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 
 const RestoList = () => {
   const [restoList, setRestoList] = useState([]);
   const [selected, setSelected] = useState(null);
   const [rating, setRating] = useState(null);
+  const [count, setCount] = useState(null);
+  const [edit, setEdit] = useState(null);
   const [highlighted, setHighlighted] = useState(-1);
 
-  useEffect(() => {
+  useEffect((props) => {
     fetch("http://127.0.0.1:8000/api/restaurants", {
       method: "GET",
       headers: {
@@ -27,6 +30,8 @@ const RestoList = () => {
   const handleRestoClick = (resto) => (evt) => {
     setSelected(resto);
     setRating(resto.rating_avg);
+    setCount(resto.rating_count);
+    setEdit(null);
   };
 
   const highlighter = (high) => (evt) => {
@@ -44,7 +49,7 @@ const RestoList = () => {
       body: JSON.stringify({ stars: newRating })
     })
       .then((response) => response.json())
-      .then((response) => {
+      .then(() => {
         setRating(newRating);
         updateRestoList(resto.id, newRating);
       })
@@ -57,6 +62,17 @@ const RestoList = () => {
         resto.id === restoId ? { ...resto, rating_avg: newRating } : resto
       )
     );
+  };
+
+  const editClicked = (resto) => {
+    setEdit(resto);
+    setSelected(resto);
+    setRating(resto.rating_avg);
+    setCount(resto.rating_count);
+  };
+
+  const deleteClicked = (resto) => {
+    console.log("clicked");
   };
 
   return (
@@ -73,53 +89,74 @@ const RestoList = () => {
                 >
                   {resto.name}
                 </h2>
+                <>
+                  <div>
+                    <FaEdit
+                      className={`${styles.editIcon}`}
+                      onClick={() => editClicked(resto)}
+                    />
+                    <FaTrashAlt
+                      className={`${styles.trashIcon}`}
+                      onClick={() => deleteClicked()}
+                    />
+                  </div>
+                </>
               </div>
             );
           })}
         </div>
-        <div>
-          <h2>Description</h2>
-          <Ratings
-            rating_avg={
-              <>
-                {rating ? (
-                  <>
-                    <FaStar className={`${rating > 0 ? styles.star : ""}`} />
-                    <FaStar className={`${rating > 1 ? styles.star : ""}`} />
-                    <FaStar className={`${rating > 2 ? styles.star : ""}`} />
-                    <FaStar className={`${rating > 3 ? styles.star : ""}`} />
-                    <FaStar className={`${rating > 4 ? styles.star : ""}`} />
-                  </>
-                ) : null}
-              </>
-            }
-          />
-          <RestoDetails
-            description={
-              selected ? (
-                selected.description
-              ) : (
-                <h4 className={`${styles.message}`}>
-                  <FaLongArrowAltLeft className={`${styles.arrow}`} />
-                  Select a restaurant on the right to see ratings.
-                </h4>
-              )
-            }
-          />
+        {edit ? null : (
           <div>
-            <h3>Rate Restaurant</h3>
-            {[...Array(5)].map((e, i) => {
-              return (
-                <FaStar
-                  key={i}
-                  className={`${highlighted > i - 1 ? styles.rateIt : ""}`}
-                  onMouseEnter={highlighter(i)}
-                  onMouseLeave={highlighter(-1)}
-                  onClick={() => rateClicked(i, selected)}
-                />
-              );
-            })}
+            <h2>Description</h2>
+            <Ratings
+              rating_avg={
+                <div>
+                  {rating ? (
+                    <>
+                      <FaStar className={`${rating > 0 ? styles.star : ""}`} />
+                      <FaStar className={`${rating > 1 ? styles.star : ""}`} />
+                      <FaStar className={`${rating > 2 ? styles.star : ""}`} />
+                      <FaStar className={`${rating > 3 ? styles.star : ""}`} />
+                      <FaStar className={`${rating > 4 ? styles.star : ""}`} />
+                    </>
+                  ) : null}
+                </div>
+              }
+              rating_count={count ? <p>({count})</p> : null}
+            />
+
+            <>
+              <RestoDetails
+                description={
+                  selected ? (
+                    selected.description
+                  ) : (
+                    <h4 className={`${styles.message}`}>
+                      <FaLongArrowAltLeft className={`${styles.arrow}`} />
+                      Select a restaurant on the right to see ratings.
+                    </h4>
+                  )
+                }
+              />
+              <div>
+                <h3>Rate Restaurant</h3>
+                {[...Array(5)].map((e, i) => {
+                  return (
+                    <FaStar
+                      key={i}
+                      className={`${highlighted > i - 1 ? styles.rateIt : ""}`}
+                      onMouseEnter={highlighter(i)}
+                      onMouseLeave={highlighter(-1)}
+                      onClick={() => rateClicked(i, selected)}
+                    />
+                  );
+                })}
+              </div>
+            </>
           </div>
+        )}
+        <div>
+          {edit ? <RestoCreateUpdate RestoName={`${edit.name} Edit`} /> : null}
         </div>
       </div>
     </React.Fragment>

@@ -27,7 +27,7 @@ const RestoCreateUpdate = ({ resto }) => {
           >
             <form>
               <Stack spacing={1}>
-                <label>Restaurant Name</label>
+                <label htmlFor="title">Restaurant Name</label>
                 <Input
                   id="title"
                   value={title}
@@ -37,7 +37,7 @@ const RestoCreateUpdate = ({ resto }) => {
                   sx={{ my: 2, p: 2 }}
                   onChange={(evt) => setTitle(evt.target.value)}
                 />
-                <label>Write a Review</label>
+                <label htmlFor="desc">Write a Review</label>
                 <Textarea
                   id="desc"
                   value={desc}

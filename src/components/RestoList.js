@@ -91,7 +91,7 @@ const RestoList = () => {
                     {resto.name}
                   </h2>
                 </div>
-                <div>
+                <div className={`${styles.icons}`}>
                   <FaEdit
                     className={`${styles.editIcon}`}
                     onClick={() => editClicked(resto)}
@@ -157,7 +157,13 @@ const RestoList = () => {
           </div>
         )}
         <div>
-          {edit ? <RestoCreateUpdate RestoName={`${edit.name} Edit`} /> : null}
+          {edit ? (
+            <RestoCreateUpdate
+              resto={`${edit.name} EDIT`}
+              name={`${edit.name}`}
+              description={`${edit.description}`}
+            />
+          ) : null}
         </div>
       </div>
     </React.Fragment>

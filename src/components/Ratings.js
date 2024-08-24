@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 const Ratings = (props) => {
   const { rating_avg } = props;

@@ -72,7 +72,17 @@ const RestoList = () => {
     setCount(resto.rating_count);
   };
 
-  const deleteClicked = (resto) => {
+  const updatedRestoDetail = (resto) => {
+    const newRestoDetail = restoList.map((r) => {
+      if (r.id === resto.id) {
+        return resto;
+      }
+      return r;
+    });
+    setRestoList(newRestoDetail).then(editClicked());
+  };
+
+  const deleteClicked = () => {
     console.log("clicked");
   };
 
@@ -161,7 +171,14 @@ const RestoList = () => {
             </>
           </div>
         )}
-        <div>{edit ? <RestoCreateUpdate resto={edit} /> : null}</div>
+        <div>
+          {edit ? (
+            <RestoCreateUpdate
+              resto={edit}
+              updatedRestoDetail={updatedRestoDetail}
+            />
+          ) : null}
+        </div>
       </div>
     </React.Fragment>
   );

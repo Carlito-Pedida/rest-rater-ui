@@ -15,6 +15,7 @@ const RestoCreateUpdate = ({ resto }) => {
     API.updateRestoDetail(resto.id, { name: title, description: desc }).then(
       (response) => console.log(response)
     );
+    window.confirm("Updated");
   };
 
   return (

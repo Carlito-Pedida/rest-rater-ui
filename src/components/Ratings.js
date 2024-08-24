@@ -1,9 +1,15 @@
 import React from "react";
+import styles from "../Styles/Ratings.module.css";
 
 const Ratings = (props) => {
-  const { rating_avg } = props;
+  const { rating_avg, rating_count } = props;
 
-  return <div>{rating_avg}</div>;
+  return (
+    <div className={`${styles.ratingLayout}`}>
+      {rating_avg}
+      {rating_count}
+    </div>
+  );
 };
 
 export default Ratings;

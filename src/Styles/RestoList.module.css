@@ -6,6 +6,10 @@
   color: rgb(250, 238, 128);
 }
 
+.restoname:active {
+  color: rgb(250, 238, 128);
+}
+
 .mainView {
   display: flex;
   flex-direction: row;
@@ -34,4 +38,21 @@
   display: flex;
   align-items: center;
   column-gap: 10px;
+}
+.editIcon {
+  color: rgb(112, 181, 112);
+  padding: 0px 5px;
+  cursor: pointer;
+}
+.editIcon:hover {
+  color: rgb(255, 255, 93);
+}
+
+.trashIcon {
+  color: red;
+  padding: 0px 5px;
+  cursor: pointer;
+}
+.trashIcon:hover {
+  color: rgb(252, 192, 129);
 }

@@ -2,14 +2,19 @@
 import { Box, Button, Stack, Textarea } from "@mui/joy";
 import Input from "@mui/joy/Input";
 import React, { useState } from "react";
+import { API } from "../ApiService";
 
 const RestoCreateUpdate = ({ resto }) => {
   const { name, description } = resto;
   const [title, setTitle] = useState(name);
   const [desc, setDesc] = useState(description);
 
+  console.log(resto.id);
+
   const updateClicked = () => {
-    console.log("clicked");
+    API.updateRestoDetail(resto.id, { name: title, description: desc }).then(
+      (response) => console.log(response)
+    );
   };
 
   return (

@@ -1,0 +1,11 @@
+.app {
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #282c34;
+  color: white;
+}
+
+.appHeader {
+  text-align: center;
+  font-size: calc(10px + 2vmin);
+}

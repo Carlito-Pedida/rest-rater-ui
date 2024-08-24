@@ -11,6 +11,11 @@
 *.history
 *.history/
 
+# Miscs
+/assets
+
+
+
 # testing
 /coverage
 

@@ -1,0 +1,37 @@
+.restoname {
+  cursor: pointer;
+}
+
+.restoname:hover {
+  color: rgb(250, 238, 128);
+}
+
+.mainView {
+  display: flex;
+  flex-direction: row;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.star {
+  color: orange;
+}
+.rateIt {
+  color: orange;
+  cursor: pointer;
+}
+
+.arrow {
+  color: yellow;
+  scale: calc(1.5);
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}

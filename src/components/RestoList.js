@@ -14,7 +14,7 @@ const RestoList = () => {
   const [edit, setEdit] = useState(null);
   const [highlighted, setHighlighted] = useState(-1);
 
-  useEffect((props) => {
+  useEffect(() => {
     fetch("http://127.0.0.1:8000/api/restaurants", {
       method: "GET",
       headers: {
@@ -24,6 +24,7 @@ const RestoList = () => {
     })
       .then((response) => response.json())
       .then((response) => setRestoList(response))
+
       .catch((error) => console.log(error));
   }, []);
 
@@ -84,12 +85,12 @@ const RestoList = () => {
             return (
               <div key={resto.id} className={`${styles.leftGrid}`}>
                 <div>
-                  <h2
+                  <h3
                     className={`${styles.restoname}`}
                     onClick={handleRestoClick(resto)}
                   >
                     {resto.name}
-                  </h2>
+                  </h3>
                 </div>
                 <div className={`${styles.icons}`}>
                   <FaEdit
@@ -138,33 +139,29 @@ const RestoList = () => {
                   )
                 }
               />
-              <div>
-                <h3>Rate it!</h3>
-                {[...Array(5)].map((e, i) => {
-                  return (
-                    <FaStar
-                      key={i}
-                      id={`${styles.rateIt}`}
-                      className={`${highlighted > i - 1 ? styles.rateIt : ""}`}
-                      onMouseEnter={highlighter(i)}
-                      onMouseLeave={highlighter(-1)}
-                      onClick={() => rateClicked(i, selected)}
-                    />
-                  );
-                })}
-              </div>
+              {selected ? (
+                <div>
+                  <h3>Rate it!</h3>
+                  {[...Array(5)].map((e, i) => {
+                    return (
+                      <FaStar
+                        key={i}
+                        id={`${styles.rateIt}`}
+                        className={`${
+                          highlighted > i - 1 ? styles.rateIt : ""
+                        }`}
+                        onMouseEnter={highlighter(i)}
+                        onMouseLeave={highlighter(-1)}
+                        onClick={() => rateClicked(i, selected)}
+                      />
+                    );
+                  })}
+                </div>
+              ) : null}
             </>
           </div>
         )}
-        <div>
-          {edit ? (
-            <RestoCreateUpdate
-              resto={`${edit.name} EDIT`}
-              name={`${edit.name}`}
-              description={`${edit.description}`}
-            />
-          ) : null}
-        </div>
+        <div>{edit ? <RestoCreateUpdate resto={edit} /> : null}</div>
       </div>
     </React.Fragment>
   );

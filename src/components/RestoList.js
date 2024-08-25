@@ -4,16 +4,17 @@ import styles from "../Styles/RestoList.module.css";
 import Ratings from "./Ratings";
 import RestoCreateUpdate from "./RestoCreateUpdate";
 import RestoDetails from "./RestoDetails";
+import { Box, Button } from "@mui/joy";
+import ReviewList from "./ReviewList";
 
 const RestoList = () => {
   const [restoList, setRestoList] = useState([]);
   const [selected, setSelected] = useState(null);
   const [rating, setRating] = useState(null);
   const [count, setCount] = useState(null);
+  const [newResto, setNewResto] = useState(null);
   const [edit, setEdit] = useState(null);
   const [highlighted, setHighlighted] = useState(-1);
-
-  console.log(restoList);
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/restaurants", {
@@ -75,6 +76,12 @@ const RestoList = () => {
     setSelected(newRestoDetail);
   };
 
+  const addRestaurant = () => {
+    setEdit({ name: "", description: "" });
+    setSelected(null);
+    console.log("Add Restaurant");
+  };
+
   const editClicked = (resto) => {
     setEdit(resto);
   };
@@ -114,10 +121,16 @@ const RestoList = () => {
               </div>
             );
           })}
+          {edit ? null : (
+            <Box>
+              <Button onClick={() => addRestaurant()}>
+                Add restaurant to review
+              </Button>
+            </Box>
+          )}
         </div>
         {edit ? null : (
           <div>
-            <h2>Review</h2>
             <Ratings
               rating_avg={
                 <div>
@@ -165,7 +178,9 @@ const RestoList = () => {
                         );
                       })}
                     </div>
-                  ) : null
+                  ) : (
+                    <ReviewList />
+                  )
                 }
               />
             </>
@@ -176,6 +191,7 @@ const RestoList = () => {
             <RestoCreateUpdate
               resto={edit}
               updateRestoDetail={updateRestoDetail}
+              setEdit={setEdit}
             />
           ) : null}
         </div>

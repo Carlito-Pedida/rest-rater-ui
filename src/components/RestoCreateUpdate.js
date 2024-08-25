@@ -3,7 +3,7 @@ import Input from "@mui/joy/Input";
 import React, { useState } from "react";
 import { API } from "../ApiService";
 
-const RestoCreateUpdate = ({ resto, updateRestoDetail }) => {
+const RestoCreateUpdate = ({ resto, updateRestoDetail, setEdit }) => {
   const { name, description } = resto;
   const [title, setTitle] = useState(name);
   const [desc, setDesc] = useState(description);
@@ -13,12 +13,15 @@ const RestoCreateUpdate = ({ resto, updateRestoDetail }) => {
       .then((response) => console.log(response))
       .then((response) => updateRestoDetail(response));
   };
+  const handleCancel = () => {
+    setEdit(null);
+  };
 
   return (
     <React.Fragment>
       {resto ? (
         <div>
-          <h3>{title} Create/Edit Form</h3>
+          {resto.id ? <h3>Edit: {title} </h3> : <h3>Add Restaurant</h3>}
           <Box
             sx={{
               py: 1,
@@ -53,12 +56,21 @@ const RestoCreateUpdate = ({ resto, updateRestoDetail }) => {
                 <div className="container justify-contents-center">
                   <Button
                     color="success"
-                    sx={{ px: 5, my: 1 }}
+                    sx={{ px: 5, my: 1, mr: 2 }}
                     size="sm"
                     type="submit"
                     onClick={() => updateResto()}
                   >
                     Submit
+                  </Button>
+                  <Button
+                    color="danger"
+                    sx={{ px: 5, my: 1 }}
+                    size="sm"
+                    type="submit"
+                    onClick={handleCancel}
+                  >
+                    Cancel
                   </Button>
                 </div>
               </Stack>

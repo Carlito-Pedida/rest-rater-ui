@@ -1,0 +1,9 @@
+.reviewBox {
+  max-height: 250px;
+  background-color: rgb(62, 94, 102);
+  border-radius: 15px;
+  overflow: scroll;
+  padding-left: 15px;
+  padding-right: 15px;
+  scroll-behavior: smooth;
+}

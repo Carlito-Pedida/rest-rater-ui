@@ -1,27 +1,27 @@
-//import { Button, Stack } from "@mui/material";
 import { Box, Button, Stack, Textarea } from "@mui/joy";
 import Input from "@mui/joy/Input";
 import React, { useState } from "react";
 import { API } from "../ApiService";
 
-const RestoCreateUpdate = ({ resto }) => {
+const RestoCreateUpdate = ({ resto, updateRestoDetail, setEdit }) => {
   const { name, description } = resto;
   const [title, setTitle] = useState(name);
   const [desc, setDesc] = useState(description);
 
-  console.log(resto.id);
-
-  const updateClicked = () => {
-    API.updateRestoDetail(resto.id, { name: title, description: desc }).then(
-      (response) => console.log(response)
-    );
+  const updateResto = () => {
+    API.updateRestoDetail(resto.id, { name: title, description: desc })
+      .then((response) => console.log(response))
+      .then((response) => updateRestoDetail(response));
+  };
+  const handleCancel = () => {
+    setEdit(null);
   };
 
   return (
     <React.Fragment>
       {resto ? (
         <div>
-          <h3>{title} Edit</h3>
+          {resto.id ? <h3>Edit: {title} </h3> : <h3>Add Restaurant</h3>}
           <Box
             sx={{
               py: 1,
@@ -32,7 +32,7 @@ const RestoCreateUpdate = ({ resto }) => {
           >
             <form>
               <Stack spacing={1}>
-                <label htmlFor="title">Restaurant Name</label>
+                <label>Restaurant Name</label>
                 <Input
                   id="title"
                   value={title}
@@ -42,7 +42,7 @@ const RestoCreateUpdate = ({ resto }) => {
                   sx={{ my: 2, p: 2 }}
                   onChange={(evt) => setTitle(evt.target.value)}
                 />
-                <label htmlFor="desc">Write a Review</label>
+                <label>Write a Review</label>
                 <Textarea
                   id="desc"
                   value={desc}
@@ -56,12 +56,21 @@ const RestoCreateUpdate = ({ resto }) => {
                 <div className="container justify-contents-center">
                   <Button
                     color="success"
+                    sx={{ px: 5, my: 1, mr: 2 }}
+                    size="sm"
+                    type="submit"
+                    onClick={() => updateResto()}
+                  >
+                    Submit
+                  </Button>
+                  <Button
+                    color="danger"
                     sx={{ px: 5, my: 1 }}
                     size="sm"
                     type="submit"
-                    onClick={() => updateClicked()}
+                    onClick={handleCancel}
                   >
-                    Submit
+                    Cancel
                   </Button>
                 </div>
               </Stack>

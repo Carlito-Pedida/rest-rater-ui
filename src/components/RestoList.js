@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { FaEdit, FaLongArrowAltLeft, FaStar, FaTrashAlt } from "react-icons/fa";
 import styles from "../Styles/RestoList.module.css";
-import RestoDetails from "./RestoDetails";
-import RestoCreateUpdate from "./RestoCreateUpdate";
 import Ratings from "./Ratings";
-import { FaStar, FaTrashAlt, FaEdit } from "react-icons/fa";
-import { FaLongArrowAltLeft } from "react-icons/fa";
+import RestoCreateUpdate from "./RestoCreateUpdate";
+import RestoDetails from "./RestoDetails";
+import { Box, Button } from "@mui/joy";
+import ReviewList from "./ReviewList";
 
 const RestoList = () => {
   const [restoList, setRestoList] = useState([]);
   const [selected, setSelected] = useState(null);
   const [rating, setRating] = useState(null);
   const [count, setCount] = useState(null);
+  const [newResto, setNewResto] = useState(null);
   const [edit, setEdit] = useState(null);
   const [highlighted, setHighlighted] = useState(-1);
 
@@ -24,7 +26,6 @@ const RestoList = () => {
     })
       .then((response) => response.json())
       .then((response) => setRestoList(response))
-
       .catch((error) => console.log(error));
   }, []);
 
@@ -65,11 +66,24 @@ const RestoList = () => {
     );
   };
 
+  const updateRestoDetail = (resto) => {
+    const newRestoDetail = restoList.map((restoDetail) => {
+      if (restoDetail.id === resto.id) {
+        return resto;
+      }
+      return restoDetail;
+    });
+    setSelected(newRestoDetail);
+  };
+
+  const addRestaurant = () => {
+    setEdit({ name: "", description: "" });
+    setSelected(null);
+    console.log("Add Restaurant");
+  };
+
   const editClicked = (resto) => {
     setEdit(resto);
-    setSelected(resto);
-    setRating(resto.rating_avg);
-    setCount(resto.rating_count);
   };
 
   const deleteClicked = (resto) => {
@@ -92,23 +106,31 @@ const RestoList = () => {
                     {resto.name}
                   </h3>
                 </div>
-                <div className={`${styles.icons}`}>
-                  <FaEdit
-                    className={`${styles.editIcon}`}
-                    onClick={() => editClicked(resto)}
-                  />
-                  <FaTrashAlt
-                    className={`${styles.trashIcon}`}
-                    onClick={() => deleteClicked()}
-                  />
-                </div>
+                {edit ? null : (
+                  <div className={`${styles.icons}`}>
+                    <FaEdit
+                      className={`${styles.editIcon}`}
+                      onClick={() => editClicked(resto)}
+                    />
+                    <FaTrashAlt
+                      className={`${styles.trashIcon}`}
+                      onClick={() => deleteClicked()}
+                    />
+                  </div>
+                )}
               </div>
             );
           })}
+          {edit ? null : (
+            <Box>
+              <Button onClick={() => addRestaurant()}>
+                Add restaurant to review
+              </Button>
+            </Box>
+          )}
         </div>
         {edit ? null : (
           <div>
-            <h2>Review</h2>
             <Ratings
               rating_avg={
                 <div>
@@ -125,7 +147,6 @@ const RestoList = () => {
               }
               rating_count={count ? <p>( {count} )</p> : null}
             />
-
             <>
               <RestoDetails
                 description={
@@ -138,30 +159,42 @@ const RestoList = () => {
                     </h4>
                   )
                 }
+                rateSystem={
+                  selected ? (
+                    <div>
+                      <h3>Rate it!</h3>
+                      {[...Array(5)].map((e, i) => {
+                        return (
+                          <FaStar
+                            key={i}
+                            id={`${styles.rateIt}`}
+                            className={`${
+                              highlighted > i - 1 ? styles.rateIt : ""
+                            }`}
+                            onMouseEnter={highlighter(i)}
+                            onMouseLeave={highlighter(-1)}
+                            onClick={() => rateClicked(i, selected)}
+                          />
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <ReviewList />
+                  )
+                }
               />
-              {selected ? (
-                <div>
-                  <h3>Rate it!</h3>
-                  {[...Array(5)].map((e, i) => {
-                    return (
-                      <FaStar
-                        key={i}
-                        id={`${styles.rateIt}`}
-                        className={`${
-                          highlighted > i - 1 ? styles.rateIt : ""
-                        }`}
-                        onMouseEnter={highlighter(i)}
-                        onMouseLeave={highlighter(-1)}
-                        onClick={() => rateClicked(i, selected)}
-                      />
-                    );
-                  })}
-                </div>
-              ) : null}
             </>
           </div>
         )}
-        <div>{edit ? <RestoCreateUpdate resto={edit} /> : null}</div>
+        <div>
+          {edit ? (
+            <RestoCreateUpdate
+              resto={edit}
+              updateRestoDetail={updateRestoDetail}
+              setEdit={setEdit}
+            />
+          ) : null}
+        </div>
       </div>
     </React.Fragment>
   );

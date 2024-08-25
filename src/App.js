@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import RestoList from "./components/RestoList";
 import styles from "./Styles/App.module.css";
 

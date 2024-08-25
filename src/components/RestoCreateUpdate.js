@@ -1,28 +1,24 @@
-//import { Button, Stack } from "@mui/material";
 import { Box, Button, Stack, Textarea } from "@mui/joy";
 import Input from "@mui/joy/Input";
 import React, { useState } from "react";
 import { API } from "../ApiService";
 
-const RestoCreateUpdate = ({ resto }) => {
+const RestoCreateUpdate = ({ resto, updateRestoDetail }) => {
   const { name, description } = resto;
   const [title, setTitle] = useState(name);
   const [desc, setDesc] = useState(description);
 
-  console.log(resto.id);
-
-  const updateClicked = () => {
-    API.updateRestoDetail(resto.id, { name: title, description: desc }).then(
-      (response) => console.log(response)
-    );
-    window.confirm("Updated");
+  const updateResto = () => {
+    API.updateRestoDetail(resto.id, { name: title, description: desc })
+      .then((response) => console.log(response))
+      .then((response) => updateRestoDetail(response));
   };
 
   return (
     <React.Fragment>
       {resto ? (
         <div>
-          <h3>{title} Edit</h3>
+          <h3>{title} Create/Edit Form</h3>
           <Box
             sx={{
               py: 1,
@@ -33,7 +29,7 @@ const RestoCreateUpdate = ({ resto }) => {
           >
             <form>
               <Stack spacing={1}>
-                <label htmlFor="title">Restaurant Name</label>
+                <label>Restaurant Name</label>
                 <Input
                   id="title"
                   value={title}
@@ -43,7 +39,7 @@ const RestoCreateUpdate = ({ resto }) => {
                   sx={{ my: 2, p: 2 }}
                   onChange={(evt) => setTitle(evt.target.value)}
                 />
-                <label htmlFor="desc">Write a Review</label>
+                <label>Write a Review</label>
                 <Textarea
                   id="desc"
                   value={desc}
@@ -60,7 +56,7 @@ const RestoCreateUpdate = ({ resto }) => {
                     sx={{ px: 5, my: 1 }}
                     size="sm"
                     type="submit"
-                    onClick={() => updateClicked()}
+                    onClick={() => updateResto()}
                   >
                     Submit
                   </Button>

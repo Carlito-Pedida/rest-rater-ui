@@ -21,17 +21,15 @@ const ReviewList = () => {
     <>
       <h3>Reviews</h3>
       <div className={`${styles.reviewBox}`}>
-        {descriptions.map((desc) => {
+        {descriptions.map((desc, id) => {
           return (
-            <>
-              <div>
-                <p>
-                  <i>
-                    {desc.name} - {desc.description}
-                  </i>
-                </p>
-              </div>
-            </>
+            <div key={id}>
+              <p>
+                <i>
+                  {desc.name} - {desc.description}
+                </i>
+              </p>
+            </div>
           );
         })}
       </div>

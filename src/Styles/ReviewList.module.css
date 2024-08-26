@@ -1,7 +1,7 @@
 .reviewBox {
   max-height: 250px;
   background-color: rgb(62, 94, 102);
-  border-radius: 15px;
+  border-radius: 20px;
   overflow: scroll;
   padding-left: 15px;
   padding-right: 15px;

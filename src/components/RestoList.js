@@ -6,6 +6,7 @@ import RestoCreateUpdate from "./RestoCreateUpdate";
 import RestoDetails from "./RestoDetails";
 import { Box, Button } from "@mui/joy";
 import ReviewList from "./ReviewList";
+import { API } from "../ApiService";
 
 const RestoList = () => {
   const [restoList, setRestoList] = useState([]);
@@ -91,7 +92,19 @@ const RestoList = () => {
   };
 
   const deleteClicked = (resto) => {
-    console.log("clicked");
+    API.deleteResto(resto.id)
+      .then(() => handleDeleteResto(resto))
+      .catch((error) => console.log(error));
+  };
+
+  const handleDeleteResto = (resto) => {
+    const restoCopy = restoList.filter((r_copy) => {
+      if (r_copy.id === resto.id) {
+        return false;
+      }
+      return true;
+    });
+    setRestoList(restoCopy);
   };
 
   return (
@@ -118,7 +131,7 @@ const RestoList = () => {
                     />
                     <FaTrashAlt
                       className={`${styles.trashIcon}`}
-                      onClick={() => deleteClicked()}
+                      onClick={() => deleteClicked(resto)}
                     />
                   </div>
                 )}

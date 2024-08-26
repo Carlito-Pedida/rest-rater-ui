@@ -12,7 +12,6 @@ const RestoList = () => {
   const [selected, setSelected] = useState(null);
   const [rating, setRating] = useState(null);
   const [count, setCount] = useState(null);
-  const [newResto, setNewResto] = useState(null);
   const [edit, setEdit] = useState(null);
   const [highlighted, setHighlighted] = useState(-1);
 
@@ -55,6 +54,7 @@ const RestoList = () => {
         setRating(newRating);
         updateRestoList(resto.id, newRating);
       })
+
       .catch((error) => console.log(error));
   };
 
@@ -73,13 +73,17 @@ const RestoList = () => {
       }
       return restoDetail;
     });
-    setSelected(newRestoDetail);
+    setRestoList(newRestoDetail);
   };
 
-  const addRestaurant = () => {
+  const createNewResto = (resto) => {
+    const newRestoList = [...restoList, resto];
+    setRestoList(newRestoList);
+  };
+
+  const createRestaurant = () => {
     setEdit({ name: "", description: "" });
     setSelected(null);
-    console.log("Add Restaurant");
   };
 
   const editClicked = (resto) => {
@@ -123,7 +127,7 @@ const RestoList = () => {
           })}
           {edit ? null : (
             <Box>
-              <Button onClick={() => addRestaurant()}>
+              <Button onClick={() => createRestaurant()}>
                 Add restaurant to review
               </Button>
             </Box>
@@ -191,6 +195,7 @@ const RestoList = () => {
             <RestoCreateUpdate
               resto={edit}
               updateRestoDetail={updateRestoDetail}
+              addNewResto={createNewResto}
               setEdit={setEdit}
             />
           ) : null}

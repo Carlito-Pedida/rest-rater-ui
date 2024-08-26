@@ -3,7 +3,12 @@ import Input from "@mui/joy/Input";
 import React, { useState } from "react";
 import { API } from "../ApiService";
 
-const RestoCreateUpdate = ({ resto, updateRestoDetail, setEdit }) => {
+const RestoCreateUpdate = ({
+  resto,
+  updateRestoDetail,
+  setEdit,
+  createNewResto
+}) => {
   const { name, description } = resto;
   const [title, setTitle] = useState(name);
   const [desc, setDesc] = useState(description);
@@ -12,6 +17,12 @@ const RestoCreateUpdate = ({ resto, updateRestoDetail, setEdit }) => {
     API.updateRestoDetail(resto.id, { name: title, description: desc })
       .then((response) => console.log(response))
       .then((response) => updateRestoDetail(response));
+  };
+
+  const addResto = () => {
+    API.createNewResto({ name: title, description: desc })
+      .then((response) => console.log(response))
+      .then((response) => createNewResto(response));
   };
   const handleCancel = () => {
     setEdit(null);
@@ -39,7 +50,7 @@ const RestoCreateUpdate = ({ resto, updateRestoDetail, setEdit }) => {
                   size="md"
                   placeholder="Restaurant"
                   type="text-field"
-                  sx={{ my: 2, p: 2 }}
+                  sx={{ my: 2, p: 2, borderRadius: 10 }}
                   onChange={(evt) => setTitle(evt.target.value)}
                 />
                 <label>Write a Review</label>
@@ -50,22 +61,35 @@ const RestoCreateUpdate = ({ resto, updateRestoDetail, setEdit }) => {
                   size="md"
                   placeholder="Write a review"
                   required
-                  sx={{ my: 2, p: 2 }}
+                  sx={{ my: 2, p: 2, borderRadius: 10 }}
                   onChange={(evt) => setDesc(evt.target.value)}
                 />
                 <div className="container justify-contents-center">
-                  <Button
-                    color="success"
-                    sx={{ px: 5, my: 1, mr: 2 }}
-                    size="sm"
-                    type="submit"
-                    onClick={() => updateResto()}
-                  >
-                    Submit
-                  </Button>
+                  {resto.id ? (
+                    <Button
+                      color="success"
+                      sx={{ px: 4, my: 1, mr: 2, borderRadius: 25 }}
+                      size="sm"
+                      type="submit"
+                      onClick={() => updateResto()}
+                    >
+                      Finish Edit
+                    </Button>
+                  ) : (
+                    <Button
+                      color="success"
+                      sx={{ px: 5, my: 1, mr: 2, borderRadius: 25 }}
+                      size="sm"
+                      type="submit"
+                      onClick={addResto}
+                    >
+                      Add Restaurant
+                    </Button>
+                  )}
+
                   <Button
                     color="danger"
-                    sx={{ px: 5, my: 1 }}
+                    sx={{ px: 5, my: 1, borderRadius: 25 }}
                     size="sm"
                     type="submit"
                     onClick={handleCancel}

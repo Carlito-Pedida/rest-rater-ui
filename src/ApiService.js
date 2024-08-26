@@ -1,5 +1,16 @@
 const TOKEN = "2b96ffb77c3cda6c7fff0483b3e5b87e9b983cee";
 export class API {
+  static async signInUser(body) {
+    const response = await fetch(`http://127.0.0.1:8000/auth/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    });
+    return await response.json();
+  }
+
   static updateRestoDetail(resto_id, body) {
     fetch(`http://127.0.0.1:8000/api/restaurants/${resto_id}/`, {
       method: "PUT",

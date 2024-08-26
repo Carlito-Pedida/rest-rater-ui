@@ -1,0 +1,16 @@
+.accountNone > a {
+  text-decoration: none;
+  color: blue;
+  font-weight: 500;
+}
+
+.accountSign {
+  color: rgb(19, 94, 255);
+}
+
+.merchBanner {
+  border-radius: 10px;
+  padding: 45px;
+  background-color: rgba(25, 187, 103, 0.96);
+  color: white;
+}

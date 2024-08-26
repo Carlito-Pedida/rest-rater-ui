@@ -21,4 +21,14 @@ export class API {
       body: JSON.stringify(body)
     }).then((response) => response.json());
   }
+
+  static deleteResto(resto_id) {
+    return fetch(`http://127.0.0.1:8000/api/restaurants/${resto_id}/`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${TOKEN}`
+      }
+    });
+  }
 }

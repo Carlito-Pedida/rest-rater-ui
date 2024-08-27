@@ -2,6 +2,7 @@ import { Box, Button, Stack, Textarea } from "@mui/joy";
 import Input from "@mui/joy/Input";
 import React, { useState } from "react";
 import { API } from "../ApiService";
+import { useCookies } from "react-cookie";
 
 const RestoCreateUpdate = ({
   resto,
@@ -13,14 +14,20 @@ const RestoCreateUpdate = ({
   const [title, setTitle] = useState(name);
   const [desc, setDesc] = useState(description);
 
+  const [token] = useCookies(["restoToken"]);
+
   const updateResto = () => {
-    API.updateRestoDetail(resto.id, { name: title, description: desc })
+    API.updateRestoDetail(
+      resto.id,
+      { name: title, description: desc },
+      token["restoToken"]
+    )
       .then((response) => console.log(response))
       .then((response) => updateRestoDetail(response));
   };
 
   const addResto = () => {
-    API.createNewResto({ name: title, description: desc })
+    API.createNewResto({ name: title, description: desc }, token["restoToken"])
       .then((response) => console.log(response))
       .then((response) => createNewResto(response));
   };

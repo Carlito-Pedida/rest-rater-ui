@@ -2,12 +2,38 @@ import { Box, Stack } from "@mui/joy";
 import Button from "@mui/joy/Button";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "../Styles/SignupSignin.module.css";
+import UserContext from "../context-provider/UserContext";
+import { useNavigate } from "react-router-dom";
+import { API } from "../ApiService";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const { createAccount, signIn } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleSignUp = async (evt) => {
+    evt.preventDefault();
+
+    try {
+      // Create account
+      await createAccount(username, password);
+
+      // Sign in with the newly created account
+      await signIn(username, password);
+
+      // Navigate to the restaurant list page
+      navigate("/restaurant_list/");
+    } catch (error) {
+      console.log(error);
+      window.alert(
+        "An error occurred while creating your account or signing in. Please try again."
+      );
+    }
+  };
 
   return (
     <Box
@@ -20,27 +46,31 @@ const SignUp = () => {
         maxWidth: 300,
         margin: "auto",
         padding: 2,
-        backgroundColor: "white",
-        color: "black",
+        backgroundColor: "gray",
+        color: "white",
         textAlign: "center"
       }}
     >
-      <h3 className={`${styles.accountSign}`}>Create an account</h3>
-      <form>
+      <h2 className={`${styles.accountCreate}`}>Create an account</h2>
+      <form onSubmit={handleSignUp}>
         <Stack sx={{ py: 2 }} spacing={1}>
-          <FormLabel htmlFor="username">Username</FormLabel>
+          <FormLabel sx={{ color: "white" }} htmlFor="username">
+            Username
+          </FormLabel>
           <Input
-            name="username"
+            id="username"
             value={username}
             placeholder="username"
             type="text"
             onChange={(evt) => setUsername(evt.target.value)}
             required
           />
-          <FormLabel htmlFor="password">Password</FormLabel>
+          <FormLabel sx={{ color: "white" }} htmlFor="password">
+            Password
+          </FormLabel>
 
           <Input
-            name="password"
+            id="password"
             value={password}
             placeholder="password"
             type="password"
@@ -52,7 +82,7 @@ const SignUp = () => {
               sx={{ px: 5, my: 1, borderRadius: 15 }}
               size="md"
               type="submit"
-              color="success"
+              color="primary"
             >
               Create Account
             </Button>
@@ -60,8 +90,8 @@ const SignUp = () => {
         </Stack>
       </form>
       <Stack>
-        <p className={`${styles.accountNone}`}>
-          Have an account? <a href="/">Sign in here</a>
+        <p className={`${styles.accountNone2}`}>
+          Already have an account? <a href="/">Sign in here</a>
         </p>
       </Stack>
     </Box>

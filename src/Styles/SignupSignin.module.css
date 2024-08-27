@@ -1,11 +1,21 @@
 .accountNone > a {
   text-decoration: none;
-  color: blue;
+  color: rgb(0, 132, 255);
+  font-weight: 500;
+}
+
+.accountNone2 > a {
+  text-decoration: none;
+  color: rgb(0, 255, 251);
   font-weight: 500;
 }
 
 .accountSign {
-  color: rgb(19, 94, 255);
+  color: rgb(25, 89, 228);
+}
+
+.accountCreate {
+  color: rgb(255, 255, 255);
 }
 
 .merchBanner {

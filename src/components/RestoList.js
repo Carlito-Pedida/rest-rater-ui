@@ -1,12 +1,13 @@
+import { Box, Button } from "@mui/joy";
 import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { FaEdit, FaLongArrowAltLeft, FaStar, FaTrashAlt } from "react-icons/fa";
+import { API } from "../ApiService";
 import styles from "../Styles/RestoList.module.css";
 import Ratings from "./Ratings";
 import RestoCreateUpdate from "./RestoCreateUpdate";
 import RestoDetails from "./RestoDetails";
-import { Box, Button } from "@mui/joy";
 import ReviewList from "./ReviewList";
-import { API } from "../ApiService";
 
 const RestoList = () => {
   const [restoList, setRestoList] = useState([]);
@@ -16,16 +17,32 @@ const RestoList = () => {
   const [edit, setEdit] = useState(null);
   const [highlighted, setHighlighted] = useState(-1);
 
+  const [token] = useCookies(["loggedUserToken"]);
+
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/restaurants/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token 2b96ffb77c3cda6c7fff0483b3e5b87e9b983cee"
+        Authorization: `Token ${token["loggedUserToken"]}`
       }
     })
-      .then((response) => response.json())
-      .then((response) => setRestoList(response))
+      .then((response) => {
+        if (response.status === 401) {
+          // Redirect to sign-in page if the token is invalid
+          window.location.href = "/";
+          return null;
+        } else if (!response.ok) {
+          throw new Error("Something went wrong");
+        }
+        return response.json();
+      })
+      .then((response) => {
+        if (response) {
+          console.log(response);
+          setRestoList(response);
+        }
+      })
       .catch((error) => console.log(error));
   }, []);
 
@@ -46,7 +63,7 @@ const RestoList = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token 2b96ffb77c3cda6c7fff0483b3e5b87e9b983cee"
+        Authorization: `Token ${token["loggedUserToken"]}`
       },
       body: JSON.stringify({ stars: newRating })
     })

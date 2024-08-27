@@ -2,24 +2,32 @@ import { Box, Stack } from "@mui/joy";
 import Button from "@mui/joy/Button";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../Styles/SignupSignin.module.css";
-import { API } from "../ApiService";
+import UserContext from "../context-provider/UserContext";
 
 const Auth = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const { signIn } = useContext(UserContext);
+
+  const navigate = useNavigate();
+
   const handleSignIn = (evt) => {
     evt.preventDefault();
-    const body = {
-      username: username,
-      password: password
-    };
 
-    API.signInUser(body)
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
+    signIn(username, password)
+      .then(() => {
+        navigate("/restaurant_list/");
+      })
+      .catch((error) => {
+        console.log(error);
+        window.alert(
+          "Wrong Credentials, \nPlease try again or sign up for an account"
+        );
+      });
   };
 
   return (
@@ -38,8 +46,8 @@ const Auth = () => {
         textAlign: "center"
       }}
     >
-      <h3 className={`${styles.accountSign}`}>Sign In to your Account</h3>
-      <form>
+      <h2 className={`${styles.accountSign}`}>Sign In to your Account</h2>
+      <form onSubmit={handleSignIn}>
         <Stack sx={{ py: 2 }} spacing={1}>
           <FormLabel htmlFor="username">Username</FormLabel>
           <Input
@@ -66,7 +74,6 @@ const Auth = () => {
               size="md"
               type="submit"
               color="success"
-              onClick={handleSignIn}
             >
               Sign In
             </Button>

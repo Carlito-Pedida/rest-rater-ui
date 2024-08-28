@@ -3,7 +3,6 @@ import Button from "@mui/joy/Button";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styles from "../Styles/SignupSignin.module.css";
 import UserContext from "../context-provider/UserContext";
 
@@ -12,8 +11,6 @@ const Auth = () => {
   const [password, setPassword] = useState("");
 
   const { signIn } = useContext(UserContext);
-
-  const navigate = useNavigate();
 
   const handleSignIn = (evt) => {
     evt.preventDefault();

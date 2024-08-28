@@ -4,6 +4,7 @@ import UserContext from "./UserContext";
 
 const UserProvider = (props) => {
   const baseUrl = "http://127.0.0.1:8000/auth/";
+  // eslint-disable-next-line
   const [user, setUser] = useState(null);
 
   const signIn = (username, password) => {
@@ -13,7 +14,6 @@ const UserProvider = (props) => {
         const { token, user } = response.data;
         document.cookie = `loggedUserToken=${token}; path=/; secure; samesite=strict`; // Set the token in a cookie
         setUser(user); // Update the user state with the logged-in user's details
-        console.log(user);
 
         return Promise.resolve(); // Resolve the promise to indicate success
       })

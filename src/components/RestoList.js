@@ -1,14 +1,14 @@
 import { Box, Button } from "@mui/joy";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { FaEdit, FaLongArrowAltLeft, FaStar, FaTrashAlt } from "react-icons/fa";
+import { FaEdit, FaStar, FaTrashAlt } from "react-icons/fa";
 import { API } from "../ApiService";
 import styles from "../Styles/RestoList.module.css";
+import LogOut from "./LogOut";
 import Ratings from "./Ratings";
 import RestoCreateUpdate from "./RestoCreateUpdate";
 import RestoDetails from "./RestoDetails";
 import ReviewList from "./ReviewList";
-import LogOut from "./LogOut";
 
 const RestoList = () => {
   const [restoList, setRestoList] = useState([]);
@@ -44,6 +44,7 @@ const RestoList = () => {
         }
       })
       .catch((error) => console.log(error));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleRestoClick = (resto) => (evt) => {

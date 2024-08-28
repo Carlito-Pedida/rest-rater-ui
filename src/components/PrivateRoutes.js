@@ -1,13 +1,11 @@
 import { Button } from "@mui/joy";
 import React from "react";
-import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import styles from "../Styles/SignupSignin.module.css";
 
 const PrivateRoutes = () => {
   let navigate = useNavigate();
-  const [token] = useCookies(["restoToken"]);
-
+  // eslint-disable-next-line
   const handleClick = () => {
     navigate("/");
   };

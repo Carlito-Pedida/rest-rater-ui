@@ -171,9 +171,9 @@ const RestoList = () => {
               );
             })}
             {edit ? null : (
-              <Box>
+              <Box sx={{ my: 2 }}>
                 <Button onClick={() => createRestaurant()}>
-                  Add restaurant to review
+                  Add restaurant
                 </Button>
               </Box>
             )}

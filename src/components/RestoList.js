@@ -213,8 +213,7 @@ const RestoList = () => {
                       selected.description
                     ) : (
                       <h4 className={`${styles.message}`}>
-                        <FaLongArrowAltLeft className={`${styles.arrow}`} />
-                        Select a restaurant on the right to see ratings.
+                        Select a restaurant to see ratings.
                       </h4>
                     )
                   }

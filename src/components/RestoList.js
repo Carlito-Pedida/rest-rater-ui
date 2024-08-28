@@ -171,9 +171,9 @@ const RestoList = () => {
               );
             })}
             {edit ? null : (
-              <Box>
+              <Box sx={{ my: 2 }}>
                 <Button onClick={() => createRestaurant()}>
-                  Add restaurant to review
+                  Add restaurant
                 </Button>
               </Box>
             )}
@@ -210,7 +210,10 @@ const RestoList = () => {
                 <RestoDetails
                   description={
                     selected ? (
-                      selected.description
+                      <p>
+                        <strong>{selected.name}</strong> -{" "}
+                        {selected.description}
+                      </p>
                     ) : (
                       <h4 className={`${styles.message}`}>
                         Select a restaurant to see ratings.

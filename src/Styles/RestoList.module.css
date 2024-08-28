@@ -1,4 +1,4 @@
-.restoname {
+/* .restoname {
   cursor: pointer;
 }
 
@@ -63,6 +63,121 @@
 }
 .icons {
   margin: 0px 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.leftGrid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+} */
+
+.restoname {
+  cursor: pointer;
+}
+
+.restoname:hover {
+  color: rgb(250, 238, 128);
+}
+
+.restoname:active {
+  color: rgb(250, 238, 128);
+}
+
+.mainView {
+  display: flex;
+  flex-direction: row;
+}
+
+.layout {
+  margin: 0px 30px;
+  display: grid;
+  grid-template-columns: 1.3fr 2fr;
+  grid-gap: 30px;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr; /* Single column layout on smaller screens */
+    grid-gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr; /* Single column layout for tablet size */
+    grid-gap: 15px;
+  }
+
+  .leftGrid {
+    flex-direction: column; /* Stack restaurant items vertically */
+    align-items: flex-start;
+  }
+
+  .icons {
+    margin: 10px 0px; /* Adjust icon margins for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .layout {
+    margin: 0px 15px;
+    grid-gap: 10px;
+  }
+
+  .icons {
+    margin: 5px 0px; /* Further adjust icon margins for mobile screens */
+  }
+}
+
+.star {
+  color: orange;
+}
+
+.rateIt {
+  color: rgb(47, 255, 0);
+  cursor: pointer;
+}
+
+#rateIt {
+  font-size: x-large;
+}
+
+.arrow {
+  color: yellow;
+  scale: calc(1.5);
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.editIcon {
+  color: rgb(187, 252, 129);
+  padding: 0px 5px;
+  cursor: pointer;
+}
+
+.editIcon:hover {
+  color: rgb(255, 255, 93);
+}
+
+.trashIcon {
+  color: rgb(251, 80, 80);
+  padding: 0px 5px;
+  cursor: pointer;
+}
+
+.trashIcon:hover {
+  color: rgb(252, 192, 129);
+}
+
+.icons {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;

@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Auth from "./components/Auth";
 import RestoList from "./components/RestoList";
 import SignUp from "./components/SignUp";
-import PrivateRoutes from "./components/PrivateRoutes";
 import Welcome from "./components/Welcome";
 
 const Router = () => {

@@ -1,19 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import { Box } from "@mui/joy";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Button from "@mui/joy/Button";
 import Card from "@mui/joy/Card";
 import CardActions from "@mui/joy/CardActions";
 import CardContent from "@mui/joy/CardContent";
 import CardOverflow from "@mui/joy/CardOverflow";
-import { Box } from "@mui/joy";
+import React, { useEffect, useState } from "react";
 import styles from "../Styles/SignupSignin.module.css";
-import UserContext from "../context-provider/UserContext";
 
 export default function Welcome() {
   const [advice, setAdvice] = useState("");
-  const [fontSize, setFontSize] = useState("16px");
-
-  const { signIn } = useContext(UserContext);
 
   const getAdvice = () => {
     fetch("https://api.adviceslip.com/advice")
@@ -22,10 +18,6 @@ export default function Welcome() {
         const adviceObj = adviceData.slip;
         setAdvice(adviceObj.advice);
       });
-  };
-
-  const scaleUp = (size) => {
-    setFontSize(size);
   };
 
   useEffect(() => {

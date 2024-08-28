@@ -5,30 +5,12 @@ import Input from "@mui/joy/Input";
 import React, { useContext, useState } from "react";
 import styles from "../Styles/SignupSignin.module.css";
 import UserContext from "../context-provider/UserContext";
-import { useNavigate } from "react-router-dom";
-import { API } from "../ApiService";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const { createAccount, signIn } = useContext(UserContext);
-  const navigate = useNavigate();
-
-  const handleSignIn = (evt) => {
-    evt.preventDefault();
-
-    signIn(username, password)
-      .then(() => {
-        window.location.href = "/restaurant_list/";
-      })
-      .catch((error) => {
-        console.log(error);
-        window.alert(
-          "Wrong Credentials, \nPlease try again or sign up for an account"
-        );
-      });
-  };
+  const { createAccount } = useContext(UserContext);
 
   const handleSignUp = async (evt) => {
     evt.preventDefault();

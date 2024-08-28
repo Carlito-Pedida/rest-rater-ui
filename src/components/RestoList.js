@@ -210,7 +210,10 @@ const RestoList = () => {
                 <RestoDetails
                   description={
                     selected ? (
-                      selected.description
+                      <p>
+                        <strong>{selected.name}</strong> -{" "}
+                        {selected.description}
+                      </p>
                     ) : (
                       <h4 className={`${styles.message}`}>
                         Select a restaurant to see ratings.

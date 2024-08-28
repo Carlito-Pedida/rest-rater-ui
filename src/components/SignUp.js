@@ -15,6 +15,21 @@ const SignUp = () => {
   const { createAccount, signIn } = useContext(UserContext);
   const navigate = useNavigate();
 
+  const handleSignIn = (evt) => {
+    evt.preventDefault();
+
+    signIn(username, password)
+      .then(() => {
+        window.location.href = "/restaurant_list/";
+      })
+      .catch((error) => {
+        console.log(error);
+        window.alert(
+          "Wrong Credentials, \nPlease try again or sign up for an account"
+        );
+      });
+  };
+
   const handleSignUp = async (evt) => {
     evt.preventDefault();
 
@@ -23,10 +38,9 @@ const SignUp = () => {
       await createAccount(username, password);
 
       // Sign in with the newly created account
-      await signIn(username, password);
 
       // Navigate to the restaurant list page
-      navigate("/restaurant_list/");
+      window.location.href = "/new_account/";
     } catch (error) {
       console.log(error);
       window.alert(

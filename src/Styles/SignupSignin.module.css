@@ -24,3 +24,29 @@
   background-color: rgba(25, 187, 103, 0.96);
   color: white;
 }
+
+.logout {
+  border-radius: 5px;
+  background-color: rgb(219, 215, 222);
+  padding: 5px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  font-size: xx-large;
+  color: red;
+}
+
+.logout:hover {
+  background-color: red;
+  color: rgb(230, 228, 228);
+  margin-bottom: 20px;
+}
+
+.welcomeLogo {
+  height: 1fr;
+  font-family: "Leckerli One", cursive;
+  font-weight: 400;
+  font-style: normal;
+  color: white;
+}

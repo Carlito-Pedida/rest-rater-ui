@@ -20,7 +20,7 @@ const Auth = () => {
 
     signIn(username, password)
       .then(() => {
-        navigate("/restaurant_list/");
+        window.location.href = "/restaurant_list";
       })
       .catch((error) => {
         console.log(error);

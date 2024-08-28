@@ -5,6 +5,7 @@ import Auth from "./components/Auth";
 import RestoList from "./components/RestoList";
 import SignUp from "./components/SignUp";
 import PrivateRoutes from "./components/PrivateRoutes";
+import Welcome from "./components/Welcome";
 
 const Router = () => {
   return (
@@ -14,7 +15,7 @@ const Router = () => {
           <Routes>
             <Route path="/" element={<Auth />} index />
             <Route path="/create_account/" element={<SignUp />} />
-            <Route path="/restricted_area/" element={<PrivateRoutes />} />
+            <Route path="/new_account/" element={<Welcome />} />
             <Route path="/restaurant_list/" element={<RestoList />} />
           </Routes>
         </BrowserRouter>

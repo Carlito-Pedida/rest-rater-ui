@@ -27,21 +27,14 @@ const UserProvider = (props) => {
     let userCred = { username, password };
 
     return axios.post(littleUrl, userCred).then((response) => {
-      console.log(response);
-      document.cookie = ` =${response.data.token}; path=/; secure; samesite=strict`;
-      return new Promise((resolve) => resolve(response.data));
+      console.log(response.data);
+      //const { token, user } = response.data;
+
+      return new Promise((resolve) => resolve(response.data)).then(() => {
+        document.cookie = `loggedUserToken=${response.data.token}; path=/; secure; samesite=strict`; // Set the token in a cookie
+      });
     });
   }
-
-  // function signIn(username, password) {
-  //   let user = { username, password };
-
-  //   return axios.post(`${baseUrl}`, user).then((response) => {
-  //     // localStorage.setItem("loggedUserToken", response.data.token);
-  //     document.cookie = `loggedUserToken=${response.data.token}; path=/; secure; samesite=strict`;
-  //     return Promise((resolve) => resolve(response.data));
-  //   });
-  // }
 
   return (
     <UserContext.Provider
